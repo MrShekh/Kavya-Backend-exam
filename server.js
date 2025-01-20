@@ -12,10 +12,10 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.send('kavus World!')
 })
 app.post("/register", async (req, res)=>{
-  const {name, email, password,phone} = req.body
+  const {name, email, password,confirmpassword,phone} = req.body
   const userExist = await userModel.findOne({email})
   if(userExist) {
     return res.status(400).json({error: "Email already exists"})
@@ -24,7 +24,7 @@ app.post("/register", async (req, res)=>{
   const user = await userModel.create({
     name,
     password: hash_password,
-    confirmpassword,
+    confirmpassword:hash_password,
     email,
     phone
   })
